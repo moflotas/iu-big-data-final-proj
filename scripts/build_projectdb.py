@@ -1,15 +1,23 @@
-import psycopg2 as psql
-from pprint import pprint
+"""
+Script for filling postgres database with raw data
+"""
+
 import os
+from pprint import pprint
+import sys
+import psycopg2 as psql
 
 
 def read_file(path: str) -> str:
-    if not os.path.exists(PASSWORD_PATH):
-        print("File {} does not exist".format(path))
-        exit(1)
+    """
+    Read whole file as string
+    """
+    if not os.path.exists(path):
+        print(f"File {path} does not exist")
+        sys.exit(1)
 
-    with open(path) as f:
-        return f.read().strip()
+    with open(path, encoding="utf-8") as file:
+        return file.read().strip()
 
 
 # Path to password
@@ -19,13 +27,13 @@ PASSWORD_PATH = os.path.join("secrets", ".psql.pass")
 TEAM_NUMBER = 21
 HOST = "hadoop-04.uni.innopolis.ru"
 PORT = 5432
-USER = "team{}".format(TEAM_NUMBER)
-DBNAME = "team{}_projectdb".format(TEAM_NUMBER)
+USER = f"team{TEAM_NUMBER}"
+DBNAME = f"team{TEAM_NUMBER}_projectdb"
 PASSWORD = read_file(PASSWORD_PATH)
 
 # build connection string
-CONNECTION_STRING = "host={} port={} user={} dbname={} password={}".format(
-    HOST, PORT, USER, DBNAME, PASSWORD
+CONNECTION_STRING = (
+    f"host={HOST} port={PORT} user={USER} dbname={DBNAME} password={PASSWORD}"
 )
 
 # Sql scripts
@@ -38,6 +46,9 @@ DATASET = "data/car_prices.csv"
 
 
 def main():
+    """
+    Program entrypoint
+    """
     # Connect to the remote dbms
     with psql.connect(CONNECTION_STRING) as conn:
 
@@ -49,8 +60,8 @@ def main():
         conn.commit()
 
         # Read the commands from the file and execute them.
-        with open(DATASET) as f:
-            cur.copy_expert(read_file(IMPORT_DATA), f)
+        with open(DATASET, encoding="utf-8") as file:
+            cur.copy_expert(read_file(IMPORT_DATA), file)
         conn.commit()
 
         for command in read_file(TEST_DATABASE).split("\n"):
