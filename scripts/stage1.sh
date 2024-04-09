@@ -11,3 +11,6 @@ unzip data/vehicle-sales-data.zip -d data/
 
 # Remove archive
 rm data/vehicle-sales-data.zip
+
+# Import data to postgres
+python3 scripts/build_projectdb.py

@@ -49,7 +49,8 @@ def main():
         conn.commit()
 
         # Read the commands from the file and execute them.
-        cur.copy_expert(read_file(IMPORT_DATA), DATASET)
+        with open(DATASET) as f:
+            cur.copy_expert(read_file(IMPORT_DATA), f)
         conn.commit()
 
         for command in read_file(TEST_DATABASE).split():
