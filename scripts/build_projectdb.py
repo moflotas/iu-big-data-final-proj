@@ -53,7 +53,7 @@ def main():
             cur.copy_expert(read_file(IMPORT_DATA), f)
         conn.commit()
 
-        for command in read_file(TEST_DATABASE).split():
+        for command in read_file(TEST_DATABASE).split("\n"):
             cur.execute(command)
             # Read all records and print them
             pprint(cur.fetchall())

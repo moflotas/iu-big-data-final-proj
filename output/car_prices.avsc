@@ -1,0 +1,103 @@
+{
+  "type" : "record",
+  "name" : "car_prices",
+  "doc" : "Sqoop import of car_prices",
+  "fields" : [ {
+    "name" : "year",
+    "type" : [ "null", "int" ],
+    "default" : null,
+    "columnName" : "year",
+    "sqlType" : "4"
+  }, {
+    "name" : "make",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "make",
+    "sqlType" : "12"
+  }, {
+    "name" : "model",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "model",
+    "sqlType" : "12"
+  }, {
+    "name" : "trim",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "trim",
+    "sqlType" : "12"
+  }, {
+    "name" : "body",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "body",
+    "sqlType" : "12"
+  }, {
+    "name" : "transmission",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "transmission",
+    "sqlType" : "12"
+  }, {
+    "name" : "vin",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "vin",
+    "sqlType" : "12"
+  }, {
+    "name" : "state",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "state",
+    "sqlType" : "12"
+  }, {
+    "name" : "condition",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "condition",
+    "sqlType" : "12"
+  }, {
+    "name" : "odometer",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "odometer",
+    "sqlType" : "12"
+  }, {
+    "name" : "color",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "color",
+    "sqlType" : "12"
+  }, {
+    "name" : "interior",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "interior",
+    "sqlType" : "12"
+  }, {
+    "name" : "seller",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "seller",
+    "sqlType" : "12"
+  }, {
+    "name" : "mmr",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "mmr",
+    "sqlType" : "12"
+  }, {
+    "name" : "sellingprice",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "sellingprice",
+    "sqlType" : "12"
+  }, {
+    "name" : "saledate",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "saledate",
+    "sqlType" : "12"
+  } ],
+  "tableName" : "car_prices"
+}
