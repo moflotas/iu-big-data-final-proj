@@ -29,13 +29,13 @@ bad_rows = df[
 df_dropped_shifted_rows = df.drop(bad_rows.index)
 
 
-def parse_saledate(s: str) -> str:
+def parse_saledate(date: str) -> str:
     """
     Parse a string to a datetime object using dateutil.parser.parse.
     """
-    if pd.isna(s):
+    if pd.isna(date):
         return np.nan
-    return parse(s)
+    return parse(date)
 
 df_parsed_saledate = df_dropped_shifted_rows.copy()
 df_parsed_saledate["saledate"] = df_dropped_shifted_rows["saledate"].progress_apply(
