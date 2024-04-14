@@ -42,7 +42,7 @@ IMPORT_DATA = "sql/import_data.sql"
 TEST_DATABASE = "sql/test_database.sql"
 
 # Dataset path
-DATASET = "data/car_prices.csv"
+DATASET = "data/preprocessed/car_prices.csv"
 
 
 def main():

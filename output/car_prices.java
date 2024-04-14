@@ -2,7 +2,7 @@
 // WARNING: This class is AUTO-GENERATED. Modify at your own risk.
 //
 // Debug information:
-// Generated date: Tue Apr 09 23:49:49 MSK 2024
+// Generated date: Sun Apr 14 20:00:49 MSK 2024
 // For connector: org.apache.sqoop.manager.PostgresqlManager
 import org.apache.hadoop.io.BytesWritable;
 import org.apache.hadoop.io.Text;
@@ -91,13 +91,13 @@ public class car_prices extends SqoopRecord  implements DBWritable, Writable {
     setters.put("condition", new FieldSetterCommand() {
       @Override
       public void setField(Object value) {
-        car_prices.this.condition = (String)value;
+        car_prices.this.condition = (Integer)value;
       }
     });
     setters.put("odometer", new FieldSetterCommand() {
       @Override
       public void setField(Object value) {
-        car_prices.this.odometer = (String)value;
+        car_prices.this.odometer = (Integer)value;
       }
     });
     setters.put("color", new FieldSetterCommand() {
@@ -121,19 +121,19 @@ public class car_prices extends SqoopRecord  implements DBWritable, Writable {
     setters.put("mmr", new FieldSetterCommand() {
       @Override
       public void setField(Object value) {
-        car_prices.this.mmr = (String)value;
+        car_prices.this.mmr = (Integer)value;
       }
     });
     setters.put("sellingprice", new FieldSetterCommand() {
       @Override
       public void setField(Object value) {
-        car_prices.this.sellingprice = (String)value;
+        car_prices.this.sellingprice = (Integer)value;
       }
     });
     setters.put("saledate", new FieldSetterCommand() {
       @Override
       public void setField(Object value) {
-        car_prices.this.saledate = (String)value;
+        car_prices.this.saledate = (java.sql.Timestamp)value;
       }
     });
   }
@@ -228,25 +228,25 @@ public class car_prices extends SqoopRecord  implements DBWritable, Writable {
     this.state = state;
     return this;
   }
-  private String condition;
-  public String get_condition() {
+  private Integer condition;
+  public Integer get_condition() {
     return condition;
   }
-  public void set_condition(String condition) {
+  public void set_condition(Integer condition) {
     this.condition = condition;
   }
-  public car_prices with_condition(String condition) {
+  public car_prices with_condition(Integer condition) {
     this.condition = condition;
     return this;
   }
-  private String odometer;
-  public String get_odometer() {
+  private Integer odometer;
+  public Integer get_odometer() {
     return odometer;
   }
-  public void set_odometer(String odometer) {
+  public void set_odometer(Integer odometer) {
     this.odometer = odometer;
   }
-  public car_prices with_odometer(String odometer) {
+  public car_prices with_odometer(Integer odometer) {
     this.odometer = odometer;
     return this;
   }
@@ -283,36 +283,36 @@ public class car_prices extends SqoopRecord  implements DBWritable, Writable {
     this.seller = seller;
     return this;
   }
-  private String mmr;
-  public String get_mmr() {
+  private Integer mmr;
+  public Integer get_mmr() {
     return mmr;
   }
-  public void set_mmr(String mmr) {
+  public void set_mmr(Integer mmr) {
     this.mmr = mmr;
   }
-  public car_prices with_mmr(String mmr) {
+  public car_prices with_mmr(Integer mmr) {
     this.mmr = mmr;
     return this;
   }
-  private String sellingprice;
-  public String get_sellingprice() {
+  private Integer sellingprice;
+  public Integer get_sellingprice() {
     return sellingprice;
   }
-  public void set_sellingprice(String sellingprice) {
+  public void set_sellingprice(Integer sellingprice) {
     this.sellingprice = sellingprice;
   }
-  public car_prices with_sellingprice(String sellingprice) {
+  public car_prices with_sellingprice(Integer sellingprice) {
     this.sellingprice = sellingprice;
     return this;
   }
-  private String saledate;
-  public String get_saledate() {
+  private java.sql.Timestamp saledate;
+  public java.sql.Timestamp get_saledate() {
     return saledate;
   }
-  public void set_saledate(String saledate) {
+  public void set_saledate(java.sql.Timestamp saledate) {
     this.saledate = saledate;
   }
-  public car_prices with_saledate(String saledate) {
+  public car_prices with_saledate(java.sql.Timestamp saledate) {
     this.saledate = saledate;
     return this;
   }
@@ -380,14 +380,14 @@ public class car_prices extends SqoopRecord  implements DBWritable, Writable {
     this.transmission = JdbcWritableBridge.readString(6, __dbResults);
     this.vin = JdbcWritableBridge.readString(7, __dbResults);
     this.state = JdbcWritableBridge.readString(8, __dbResults);
-    this.condition = JdbcWritableBridge.readString(9, __dbResults);
-    this.odometer = JdbcWritableBridge.readString(10, __dbResults);
+    this.condition = JdbcWritableBridge.readInteger(9, __dbResults);
+    this.odometer = JdbcWritableBridge.readInteger(10, __dbResults);
     this.color = JdbcWritableBridge.readString(11, __dbResults);
     this.interior = JdbcWritableBridge.readString(12, __dbResults);
     this.seller = JdbcWritableBridge.readString(13, __dbResults);
-    this.mmr = JdbcWritableBridge.readString(14, __dbResults);
-    this.sellingprice = JdbcWritableBridge.readString(15, __dbResults);
-    this.saledate = JdbcWritableBridge.readString(16, __dbResults);
+    this.mmr = JdbcWritableBridge.readInteger(14, __dbResults);
+    this.sellingprice = JdbcWritableBridge.readInteger(15, __dbResults);
+    this.saledate = JdbcWritableBridge.readTimestamp(16, __dbResults);
   }
   public void readFields0(ResultSet __dbResults) throws SQLException {
     this.year = JdbcWritableBridge.readInteger(1, __dbResults);
@@ -398,14 +398,14 @@ public class car_prices extends SqoopRecord  implements DBWritable, Writable {
     this.transmission = JdbcWritableBridge.readString(6, __dbResults);
     this.vin = JdbcWritableBridge.readString(7, __dbResults);
     this.state = JdbcWritableBridge.readString(8, __dbResults);
-    this.condition = JdbcWritableBridge.readString(9, __dbResults);
-    this.odometer = JdbcWritableBridge.readString(10, __dbResults);
+    this.condition = JdbcWritableBridge.readInteger(9, __dbResults);
+    this.odometer = JdbcWritableBridge.readInteger(10, __dbResults);
     this.color = JdbcWritableBridge.readString(11, __dbResults);
     this.interior = JdbcWritableBridge.readString(12, __dbResults);
     this.seller = JdbcWritableBridge.readString(13, __dbResults);
-    this.mmr = JdbcWritableBridge.readString(14, __dbResults);
-    this.sellingprice = JdbcWritableBridge.readString(15, __dbResults);
-    this.saledate = JdbcWritableBridge.readString(16, __dbResults);
+    this.mmr = JdbcWritableBridge.readInteger(14, __dbResults);
+    this.sellingprice = JdbcWritableBridge.readInteger(15, __dbResults);
+    this.saledate = JdbcWritableBridge.readTimestamp(16, __dbResults);
   }
   public void loadLargeObjects(LargeObjectLoader __loader)
       throws SQLException, IOException, InterruptedException {
@@ -426,14 +426,14 @@ public class car_prices extends SqoopRecord  implements DBWritable, Writable {
     JdbcWritableBridge.writeString(transmission, 6 + __off, 12, __dbStmt);
     JdbcWritableBridge.writeString(vin, 7 + __off, 12, __dbStmt);
     JdbcWritableBridge.writeString(state, 8 + __off, 12, __dbStmt);
-    JdbcWritableBridge.writeString(condition, 9 + __off, 12, __dbStmt);
-    JdbcWritableBridge.writeString(odometer, 10 + __off, 12, __dbStmt);
+    JdbcWritableBridge.writeInteger(condition, 9 + __off, 4, __dbStmt);
+    JdbcWritableBridge.writeInteger(odometer, 10 + __off, 4, __dbStmt);
     JdbcWritableBridge.writeString(color, 11 + __off, 12, __dbStmt);
     JdbcWritableBridge.writeString(interior, 12 + __off, 12, __dbStmt);
     JdbcWritableBridge.writeString(seller, 13 + __off, 12, __dbStmt);
-    JdbcWritableBridge.writeString(mmr, 14 + __off, 12, __dbStmt);
-    JdbcWritableBridge.writeString(sellingprice, 15 + __off, 12, __dbStmt);
-    JdbcWritableBridge.writeString(saledate, 16 + __off, 12, __dbStmt);
+    JdbcWritableBridge.writeInteger(mmr, 14 + __off, 4, __dbStmt);
+    JdbcWritableBridge.writeInteger(sellingprice, 15 + __off, 4, __dbStmt);
+    JdbcWritableBridge.writeTimestamp(saledate, 16 + __off, 93, __dbStmt);
     return 16;
   }
   public void write0(PreparedStatement __dbStmt, int __off) throws SQLException {
@@ -445,14 +445,14 @@ public class car_prices extends SqoopRecord  implements DBWritable, Writable {
     JdbcWritableBridge.writeString(transmission, 6 + __off, 12, __dbStmt);
     JdbcWritableBridge.writeString(vin, 7 + __off, 12, __dbStmt);
     JdbcWritableBridge.writeString(state, 8 + __off, 12, __dbStmt);
-    JdbcWritableBridge.writeString(condition, 9 + __off, 12, __dbStmt);
-    JdbcWritableBridge.writeString(odometer, 10 + __off, 12, __dbStmt);
+    JdbcWritableBridge.writeInteger(condition, 9 + __off, 4, __dbStmt);
+    JdbcWritableBridge.writeInteger(odometer, 10 + __off, 4, __dbStmt);
     JdbcWritableBridge.writeString(color, 11 + __off, 12, __dbStmt);
     JdbcWritableBridge.writeString(interior, 12 + __off, 12, __dbStmt);
     JdbcWritableBridge.writeString(seller, 13 + __off, 12, __dbStmt);
-    JdbcWritableBridge.writeString(mmr, 14 + __off, 12, __dbStmt);
-    JdbcWritableBridge.writeString(sellingprice, 15 + __off, 12, __dbStmt);
-    JdbcWritableBridge.writeString(saledate, 16 + __off, 12, __dbStmt);
+    JdbcWritableBridge.writeInteger(mmr, 14 + __off, 4, __dbStmt);
+    JdbcWritableBridge.writeInteger(sellingprice, 15 + __off, 4, __dbStmt);
+    JdbcWritableBridge.writeTimestamp(saledate, 16 + __off, 93, __dbStmt);
   }
   public void readFields(DataInput __dataIn) throws IOException {
 this.readFields0(__dataIn);  }
@@ -500,12 +500,12 @@ this.readFields0(__dataIn);  }
     if (__dataIn.readBoolean()) { 
         this.condition = null;
     } else {
-    this.condition = Text.readString(__dataIn);
+    this.condition = Integer.valueOf(__dataIn.readInt());
     }
     if (__dataIn.readBoolean()) { 
         this.odometer = null;
     } else {
-    this.odometer = Text.readString(__dataIn);
+    this.odometer = Integer.valueOf(__dataIn.readInt());
     }
     if (__dataIn.readBoolean()) { 
         this.color = null;
@@ -525,17 +525,18 @@ this.readFields0(__dataIn);  }
     if (__dataIn.readBoolean()) { 
         this.mmr = null;
     } else {
-    this.mmr = Text.readString(__dataIn);
+    this.mmr = Integer.valueOf(__dataIn.readInt());
     }
     if (__dataIn.readBoolean()) { 
         this.sellingprice = null;
     } else {
-    this.sellingprice = Text.readString(__dataIn);
+    this.sellingprice = Integer.valueOf(__dataIn.readInt());
     }
     if (__dataIn.readBoolean()) { 
         this.saledate = null;
     } else {
-    this.saledate = Text.readString(__dataIn);
+    this.saledate = new Timestamp(__dataIn.readLong());
+    this.saledate.setNanos(__dataIn.readInt());
     }
   }
   public void write(DataOutput __dataOut) throws IOException {
@@ -591,13 +592,13 @@ this.readFields0(__dataIn);  }
         __dataOut.writeBoolean(true);
     } else {
         __dataOut.writeBoolean(false);
-    Text.writeString(__dataOut, condition);
+    __dataOut.writeInt(this.condition);
     }
     if (null == this.odometer) { 
         __dataOut.writeBoolean(true);
     } else {
         __dataOut.writeBoolean(false);
-    Text.writeString(__dataOut, odometer);
+    __dataOut.writeInt(this.odometer);
     }
     if (null == this.color) { 
         __dataOut.writeBoolean(true);
@@ -621,19 +622,20 @@ this.readFields0(__dataIn);  }
         __dataOut.writeBoolean(true);
     } else {
         __dataOut.writeBoolean(false);
-    Text.writeString(__dataOut, mmr);
+    __dataOut.writeInt(this.mmr);
     }
     if (null == this.sellingprice) { 
         __dataOut.writeBoolean(true);
     } else {
         __dataOut.writeBoolean(false);
-    Text.writeString(__dataOut, sellingprice);
+    __dataOut.writeInt(this.sellingprice);
     }
     if (null == this.saledate) { 
         __dataOut.writeBoolean(true);
     } else {
         __dataOut.writeBoolean(false);
-    Text.writeString(__dataOut, saledate);
+    __dataOut.writeLong(this.saledate.getTime());
+    __dataOut.writeInt(this.saledate.getNanos());
     }
   }
   public void write0(DataOutput __dataOut) throws IOException {
@@ -689,13 +691,13 @@ this.readFields0(__dataIn);  }
         __dataOut.writeBoolean(true);
     } else {
         __dataOut.writeBoolean(false);
-    Text.writeString(__dataOut, condition);
+    __dataOut.writeInt(this.condition);
     }
     if (null == this.odometer) { 
         __dataOut.writeBoolean(true);
     } else {
         __dataOut.writeBoolean(false);
-    Text.writeString(__dataOut, odometer);
+    __dataOut.writeInt(this.odometer);
     }
     if (null == this.color) { 
         __dataOut.writeBoolean(true);
@@ -719,19 +721,20 @@ this.readFields0(__dataIn);  }
         __dataOut.writeBoolean(true);
     } else {
         __dataOut.writeBoolean(false);
-    Text.writeString(__dataOut, mmr);
+    __dataOut.writeInt(this.mmr);
     }
     if (null == this.sellingprice) { 
         __dataOut.writeBoolean(true);
     } else {
         __dataOut.writeBoolean(false);
-    Text.writeString(__dataOut, sellingprice);
+    __dataOut.writeInt(this.sellingprice);
     }
     if (null == this.saledate) { 
         __dataOut.writeBoolean(true);
     } else {
         __dataOut.writeBoolean(false);
-    Text.writeString(__dataOut, saledate);
+    __dataOut.writeLong(this.saledate.getTime());
+    __dataOut.writeInt(this.saledate.getNanos());
     }
   }
   private static final DelimiterSet __outputDelimiters = new DelimiterSet((char) 44, (char) 10, (char) 0, (char) 0, false);
@@ -763,9 +766,9 @@ this.readFields0(__dataIn);  }
     __sb.append(fieldDelim);
     __sb.append(FieldFormatter.escapeAndEnclose(state==null?"null":state, delimiters));
     __sb.append(fieldDelim);
-    __sb.append(FieldFormatter.escapeAndEnclose(condition==null?"null":condition, delimiters));
+    __sb.append(FieldFormatter.escapeAndEnclose(condition==null?"null":"" + condition, delimiters));
     __sb.append(fieldDelim);
-    __sb.append(FieldFormatter.escapeAndEnclose(odometer==null?"null":odometer, delimiters));
+    __sb.append(FieldFormatter.escapeAndEnclose(odometer==null?"null":"" + odometer, delimiters));
     __sb.append(fieldDelim);
     __sb.append(FieldFormatter.escapeAndEnclose(color==null?"null":color, delimiters));
     __sb.append(fieldDelim);
@@ -773,11 +776,11 @@ this.readFields0(__dataIn);  }
     __sb.append(fieldDelim);
     __sb.append(FieldFormatter.escapeAndEnclose(seller==null?"null":seller, delimiters));
     __sb.append(fieldDelim);
-    __sb.append(FieldFormatter.escapeAndEnclose(mmr==null?"null":mmr, delimiters));
+    __sb.append(FieldFormatter.escapeAndEnclose(mmr==null?"null":"" + mmr, delimiters));
     __sb.append(fieldDelim);
-    __sb.append(FieldFormatter.escapeAndEnclose(sellingprice==null?"null":sellingprice, delimiters));
+    __sb.append(FieldFormatter.escapeAndEnclose(sellingprice==null?"null":"" + sellingprice, delimiters));
     __sb.append(fieldDelim);
-    __sb.append(FieldFormatter.escapeAndEnclose(saledate==null?"null":saledate, delimiters));
+    __sb.append(FieldFormatter.escapeAndEnclose(saledate==null?"null":"" + saledate, delimiters));
     if (useRecordDelim) {
       __sb.append(delimiters.getLinesTerminatedBy());
     }
@@ -800,9 +803,9 @@ this.readFields0(__dataIn);  }
     __sb.append(fieldDelim);
     __sb.append(FieldFormatter.escapeAndEnclose(state==null?"null":state, delimiters));
     __sb.append(fieldDelim);
-    __sb.append(FieldFormatter.escapeAndEnclose(condition==null?"null":condition, delimiters));
+    __sb.append(FieldFormatter.escapeAndEnclose(condition==null?"null":"" + condition, delimiters));
     __sb.append(fieldDelim);
-    __sb.append(FieldFormatter.escapeAndEnclose(odometer==null?"null":odometer, delimiters));
+    __sb.append(FieldFormatter.escapeAndEnclose(odometer==null?"null":"" + odometer, delimiters));
     __sb.append(fieldDelim);
     __sb.append(FieldFormatter.escapeAndEnclose(color==null?"null":color, delimiters));
     __sb.append(fieldDelim);
@@ -810,11 +813,11 @@ this.readFields0(__dataIn);  }
     __sb.append(fieldDelim);
     __sb.append(FieldFormatter.escapeAndEnclose(seller==null?"null":seller, delimiters));
     __sb.append(fieldDelim);
-    __sb.append(FieldFormatter.escapeAndEnclose(mmr==null?"null":mmr, delimiters));
+    __sb.append(FieldFormatter.escapeAndEnclose(mmr==null?"null":"" + mmr, delimiters));
     __sb.append(fieldDelim);
-    __sb.append(FieldFormatter.escapeAndEnclose(sellingprice==null?"null":sellingprice, delimiters));
+    __sb.append(FieldFormatter.escapeAndEnclose(sellingprice==null?"null":"" + sellingprice, delimiters));
     __sb.append(fieldDelim);
-    __sb.append(FieldFormatter.escapeAndEnclose(saledate==null?"null":saledate, delimiters));
+    __sb.append(FieldFormatter.escapeAndEnclose(saledate==null?"null":"" + saledate, delimiters));
   }
   private static final DelimiterSet __inputDelimiters = new DelimiterSet((char) 44, (char) 10, (char) 0, (char) 0, false);
   private RecordParser __parser;
@@ -947,8 +950,8 @@ this.readFields0(__dataIn);  }
     } else {
         __cur_str = "null";
     }
-    if (__cur_str.equals("null")) { this.condition = null; } else {
-      this.condition = __cur_str;
+    if (__cur_str.equals("null") || __cur_str.length() == 0) { this.condition = null; } else {
+      this.condition = Integer.valueOf(__cur_str);
     }
 
     if (__it.hasNext()) {
@@ -956,8 +959,8 @@ this.readFields0(__dataIn);  }
     } else {
         __cur_str = "null";
     }
-    if (__cur_str.equals("null")) { this.odometer = null; } else {
-      this.odometer = __cur_str;
+    if (__cur_str.equals("null") || __cur_str.length() == 0) { this.odometer = null; } else {
+      this.odometer = Integer.valueOf(__cur_str);
     }
 
     if (__it.hasNext()) {
@@ -992,8 +995,8 @@ this.readFields0(__dataIn);  }
     } else {
         __cur_str = "null";
     }
-    if (__cur_str.equals("null")) { this.mmr = null; } else {
-      this.mmr = __cur_str;
+    if (__cur_str.equals("null") || __cur_str.length() == 0) { this.mmr = null; } else {
+      this.mmr = Integer.valueOf(__cur_str);
     }
 
     if (__it.hasNext()) {
@@ -1001,8 +1004,8 @@ this.readFields0(__dataIn);  }
     } else {
         __cur_str = "null";
     }
-    if (__cur_str.equals("null")) { this.sellingprice = null; } else {
-      this.sellingprice = __cur_str;
+    if (__cur_str.equals("null") || __cur_str.length() == 0) { this.sellingprice = null; } else {
+      this.sellingprice = Integer.valueOf(__cur_str);
     }
 
     if (__it.hasNext()) {
@@ -1010,8 +1013,8 @@ this.readFields0(__dataIn);  }
     } else {
         __cur_str = "null";
     }
-    if (__cur_str.equals("null")) { this.saledate = null; } else {
-      this.saledate = __cur_str;
+    if (__cur_str.equals("null") || __cur_str.length() == 0) { this.saledate = null; } else {
+      this.saledate = java.sql.Timestamp.valueOf(__cur_str);
     }
 
     } catch (RuntimeException e) {    throw new RuntimeException("Can't parse input data: '" + __cur_str + "'", e);    }  }
@@ -1096,8 +1099,8 @@ this.readFields0(__dataIn);  }
     } else {
         __cur_str = "null";
     }
-    if (__cur_str.equals("null")) { this.condition = null; } else {
-      this.condition = __cur_str;
+    if (__cur_str.equals("null") || __cur_str.length() == 0) { this.condition = null; } else {
+      this.condition = Integer.valueOf(__cur_str);
     }
 
     if (__it.hasNext()) {
@@ -1105,8 +1108,8 @@ this.readFields0(__dataIn);  }
     } else {
         __cur_str = "null";
     }
-    if (__cur_str.equals("null")) { this.odometer = null; } else {
-      this.odometer = __cur_str;
+    if (__cur_str.equals("null") || __cur_str.length() == 0) { this.odometer = null; } else {
+      this.odometer = Integer.valueOf(__cur_str);
     }
 
     if (__it.hasNext()) {
@@ -1141,8 +1144,8 @@ this.readFields0(__dataIn);  }
     } else {
         __cur_str = "null";
     }
-    if (__cur_str.equals("null")) { this.mmr = null; } else {
-      this.mmr = __cur_str;
+    if (__cur_str.equals("null") || __cur_str.length() == 0) { this.mmr = null; } else {
+      this.mmr = Integer.valueOf(__cur_str);
     }
 
     if (__it.hasNext()) {
@@ -1150,8 +1153,8 @@ this.readFields0(__dataIn);  }
     } else {
         __cur_str = "null";
     }
-    if (__cur_str.equals("null")) { this.sellingprice = null; } else {
-      this.sellingprice = __cur_str;
+    if (__cur_str.equals("null") || __cur_str.length() == 0) { this.sellingprice = null; } else {
+      this.sellingprice = Integer.valueOf(__cur_str);
     }
 
     if (__it.hasNext()) {
@@ -1159,18 +1162,20 @@ this.readFields0(__dataIn);  }
     } else {
         __cur_str = "null";
     }
-    if (__cur_str.equals("null")) { this.saledate = null; } else {
-      this.saledate = __cur_str;
+    if (__cur_str.equals("null") || __cur_str.length() == 0) { this.saledate = null; } else {
+      this.saledate = java.sql.Timestamp.valueOf(__cur_str);
     }
 
     } catch (RuntimeException e) {    throw new RuntimeException("Can't parse input data: '" + __cur_str + "'", e);    }  }
 
   public Object clone() throws CloneNotSupportedException {
     car_prices o = (car_prices) super.clone();
+    o.saledate = (o.saledate != null) ? (java.sql.Timestamp) o.saledate.clone() : null;
     return o;
   }
 
   public void clone0(car_prices o) throws CloneNotSupportedException {
+    o.saledate = (o.saledate != null) ? (java.sql.Timestamp) o.saledate.clone() : null;
   }
 
   public Map<String, Object> getFieldMap() {

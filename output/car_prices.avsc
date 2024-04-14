@@ -52,16 +52,16 @@
     "sqlType" : "12"
   }, {
     "name" : "condition",
-    "type" : [ "null", "string" ],
+    "type" : [ "null", "int" ],
     "default" : null,
     "columnName" : "condition",
-    "sqlType" : "12"
+    "sqlType" : "4"
   }, {
     "name" : "odometer",
-    "type" : [ "null", "string" ],
+    "type" : [ "null", "int" ],
     "default" : null,
     "columnName" : "odometer",
-    "sqlType" : "12"
+    "sqlType" : "4"
   }, {
     "name" : "color",
     "type" : [ "null", "string" ],
@@ -82,22 +82,22 @@
     "sqlType" : "12"
   }, {
     "name" : "mmr",
-    "type" : [ "null", "string" ],
+    "type" : [ "null", "int" ],
     "default" : null,
     "columnName" : "mmr",
-    "sqlType" : "12"
+    "sqlType" : "4"
   }, {
     "name" : "sellingprice",
-    "type" : [ "null", "string" ],
+    "type" : [ "null", "int" ],
     "default" : null,
     "columnName" : "sellingprice",
-    "sqlType" : "12"
+    "sqlType" : "4"
   }, {
     "name" : "saledate",
-    "type" : [ "null", "string" ],
+    "type" : [ "null", "long" ],
     "default" : null,
     "columnName" : "saledate",
-    "sqlType" : "12"
+    "sqlType" : "93"
   } ],
   "tableName" : "car_prices"
 }
