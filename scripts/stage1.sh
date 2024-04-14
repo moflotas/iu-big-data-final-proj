@@ -5,18 +5,6 @@ PASSWORD=$(head -n 1 secrets/.psql.pass)
 
 set -xe
 
-# Remove all files from data folder except *.MD
-rm -f data/*.csv
-
-# Download dataset from kaggle (requires ~/.kaggle/kaggle.json file with token)
-kaggle datasets download -d syedanwarafridi/vehicle-sales-data -p data
-
-# Unzip dataset
-unzip data/vehicle-sales-data.zip -d data/
-
-# Remove archive
-rm data/vehicle-sales-data.zip
-
 # Import data to postgres
 python3 scripts/build_projectdb.py
 
