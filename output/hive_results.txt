@@ -4,7 +4,7 @@
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> USE team21_projectdb;
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- Create table for car prices
-0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE car_prices STORED AS AVRO LOCATION 'project/warehouse/car_prices' TBLPROPERTIES ('avro. schema.url' = 'project/warehouse/avsc/car_prices.avsc');
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE car_prices STORED AS AVRO LOCATION 'project/warehouse/car_prices' TBLPROPERTIES ('avro.schema.url' = 'project/warehouse/avsc/car_prices.avsc' );
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- For checking the content of tables
 0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT * FROM car_prices LIMIT 10;

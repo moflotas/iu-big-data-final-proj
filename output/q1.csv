@@ -1,0 +1,48 @@
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> USE team21_projectdb;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> DROP TABLE IF EXISTS q1_results;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE q1_results
+. . . . . . . . . . . . . . . . . . . . . . .> (
+. . . . . . . . . . . . . . . . . . . . . . .>     color         string,
+. . . . . . . . . . . . . . . . . . . . . . .>     average_price float
+. . . . . . . . . . . . . . . . . . . . . . .> )
+. . . . . . . . . . . . . . . . . . . . . . .>     ROW FORMAT DELIMITED
+. . . . . . . . . . . . . . . . . . . . . . .>         FIELDS TERMINATED BY ','
+. . . . . . . . . . . . . . . . . . . . . . .>     location 'project/hive/warehouse/q1';
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- to not display table names with column names
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SET hive.resultset.use.unique.column.names = false;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> INSERT INTO q1_results
+. . . . . . . . . . . . . . . . . . . . . . .> SELECT color, AVG(sellingprice) AS average_price
+. . . . . . . . . . . . . . . . . . . . . . .> FROM car_prices_part_buck
+. . . . . . . . . . . . . . . . . . . . . . .> WHERE color IS NOT NULL
+. . . . . . . . . . . . . . . . . . . . . . .> GROUP BY color
+. . . . . . . . . . . . . . . . . . . . . . .> ORDER BY AVG(sellingprice) DESC;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM q1_results;
++------------+----------------+
+|   color    | average_price  |
++------------+----------------+
+| charcoal   | 16247.497      |
+| black      | 15509.005      |
+| brown      | 15352.808      |
+| off-white  | 15230.2295     |
+| white      | 14740.698      |
+| gray       | 13951.473      |
+| lime       | 13256.667      |
+| orange     | 12787.109      |
+| red        | 12688.912      |
+| yellow     | 12652.202      |
+| purple     | 11969.685      |
+| burgundy   | 11902.997      |
+| silver     | 11781.009      |
+| pink       | 11746.429      |
+| blue       | 11440.609      |
+| beige      | 9431.169       |
+| turquoise  | 8374.479       |
+| gold       | 8324.715       |
+| green      | 8301.809       |
++------------+----------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 

@@ -1,0 +1,49 @@
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> USE team21_projectdb;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> DROP TABLE IF EXISTS q3_results;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE q3_results
+. . . . . . . . . . . . . . . . . . . . . . .> (
+. . . . . . . . . . . . . . . . . . . . . . .>     body       string,
+. . . . . . . . . . . . . . . . . . . . . . .>     body_count integer
+. . . . . . . . . . . . . . . . . . . . . . .> )
+. . . . . . . . . . . . . . . . . . . . . . .>     ROW FORMAT DELIMITED
+. . . . . . . . . . . . . . . . . . . . . . .>         FIELDS TERMINATED BY ','
+. . . . . . . . . . . . . . . . . . . . . . .>     location 'project/hive/warehouse/q3';
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- to not display table names with column names
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SET hive.resultset.use.unique.column.names = false;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> WITH body_counts AS (SELECT LOWER(body)                          AS body,
+. . . . . . . . . . . . . . . . . . . . . . .>                             COUNT(*)                             AS body_count,
+. . . . . . . . . . . . . . . . . . . . . . .>                             RANK() OVER (ORDER BY COUNT(*) DESC) AS body_rank
+. . . . . . . . . . . . . . . . . . . . . . .>                      FROM car_prices_part_buck
+. . . . . . . . . . . . . . . . . . . . . . .>                      GROUP BY body)
+. . . . . . . . . . . . . . . . . . . . . . .> INSERT INTO q3_results
+. . . . . . . . . . . . . . . . . . . . . . .> SELECT CASE
+. . . . . . . . . . . . . . . . . . . . . . .>            WHEN body_rank <= 10 THEN body
+. . . . . . . . . . . . . . . . . . . . . . .>            ELSE 'other'
+. . . . . . . . . . . . . . . . . . . . . . .>            END         AS body,
+. . . . . . . . . . . . . . . . . . . . . . .>        SUM(body_count) AS body_count
+. . . . . . . . . . . . . . . . . . . . . . .> FROM body_counts
+. . . . . . . . . . . . . . . . . . . . . . .> WHERE body IS NOT NULL
+. . . . . . . . . . . . . . . . . . . . . . .> GROUP BY CASE
+. . . . . . . . . . . . . . . . . . . . . . .>              WHEN body_rank <= 10 THEN body
+. . . . . . . . . . . . . . . . . . . . . . .>              ELSE 'other'
+. . . . . . . . . . . . . . . . . . . . . . .>              END
+. . . . . . . . . . . . . . . . . . . . . . .> ORDER BY body_count DESC;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM q3_results;
++------------+-------------+
+|    body    | body_count  |
++------------+-------------+
+| sedan      | 241343      |
+| suv        | 143844      |
+| other      | 76174       |
+| hatchback  | 21380       |
+| minivan    | 21363       |
+| coupe      | 14602       |
+| wagon      | 13630       |
+| crew cab   | 13280       |
++------------+-------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 

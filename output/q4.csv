@@ -1,0 +1,39 @@
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> USE team21_projectdb;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> DROP TABLE IF EXISTS q4_results;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE q4_results
+. . . . . . . . . . . . . . . . . . . . . . .> (
+. . . . . . . . . . . . . . . . . . . . . . .>     sale_date   string,
+. . . . . . . . . . . . . . . . . . . . . . .>     sales_count integer
+. . . . . . . . . . . . . . . . . . . . . . .> )
+. . . . . . . . . . . . . . . . . . . . . . .>     ROW FORMAT DELIMITED
+. . . . . . . . . . . . . . . . . . . . . . .>         FIELDS TERMINATED BY ','
+. . . . . . . . . . . . . . . . . . . . . . .>     location 'project/hive/warehouse/q4';
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- to not display table names with column names
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SET hive.resultset.use.unique.column.names = false;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> INSERT INTO q4_results
+. . . . . . . . . . . . . . . . . . . . . . .> SELECT DATE_FORMAT(saledate, 'yyyy.MM') AS sale_date, COUNT(*) AS sales_count
+. . . . . . . . . . . . . . . . . . . . . . .> FROM car_prices_part_buck
+. . . . . . . . . . . . . . . . . . . . . . .> WHERE saledate IS NOT NULL
+. . . . . . . . . . . . . . . . . . . . . . .> GROUP BY DATE_FORMAT(saledate, 'yyyy.MM')
+. . . . . . . . . . . . . . . . . . . . . . .> ORDER BY sale_date;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM q4_results;
++------------+--------------+
+| sale_date  | sales_count  |
++------------+--------------+
+| 2014.01    | 206          |
+| 2014.02    | 1            |
+| 2014.12    | 53520        |
+| 2015.01    | 140609       |
+| 2015.02    | 163052       |
+| 2015.03    | 46277        |
+| 2015.04    | 1450         |
+| 2015.05    | 52447        |
+| 2015.06    | 99937        |
+| 2015.07    | 1300         |
++------------+--------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
