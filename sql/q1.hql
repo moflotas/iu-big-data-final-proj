@@ -17,7 +17,6 @@ INSERT INTO q1_results
 SELECT color, AVG(sellingprice) AS average_price
 FROM car_prices_part_buck
 WHERE color IS NOT NULL
-  AND color != '—'
 GROUP BY color
 ORDER BY AVG(sellingprice) DESC;
 
