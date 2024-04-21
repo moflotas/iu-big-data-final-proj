@@ -10,7 +10,7 @@ CREATE TABLE car_prices (
     body VARCHAR(255),
     transmission VARCHAR(255),
     vin VARCHAR(255),
-    state VARCHAR(255),
+    state VARCHAR(2),
     condition INT,
     odometer INT,
     color VARCHAR(255),
