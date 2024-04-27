@@ -29,6 +29,21 @@ bad_rows = df[
 df_dropped_shifted_rows = df.drop(bad_rows.index)
 
 
+# change '—' to NaN
+def change_dash_to_nan(value: str) -> str:
+    """
+    Change a dash to NaN.
+    """
+    if value == "—":
+        return np.nan
+    return value
+
+df_fixed_dash = df_dropped_shifted_rows.copy()
+df_fixed_dash["color"] = df_fixed_dash["color"].progress_apply(
+    change_dash_to_nan
+)
+
+
 def parse_saledate(date: str) -> str:
     """
     Parse a string to a datetime object using dateutil.parser.parse.
@@ -37,8 +52,8 @@ def parse_saledate(date: str) -> str:
         return np.nan
     return parse(date)
 
-df_parsed_saledate = df_dropped_shifted_rows.copy()
-df_parsed_saledate["saledate"] = df_dropped_shifted_rows["saledate"].progress_apply(
+df_parsed_saledate = df_fixed_dash.copy()
+df_parsed_saledate["saledate"] = df_parsed_saledate["saledate"].progress_apply(
     parse_saledate
 )
 

@@ -1,0 +1,65 @@
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> USE team21_projectdb;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> DROP TABLE IF EXISTS q2_results;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE q2_results
+. . . . . . . . . . . . . . . . . . . . . . .> (
+. . . . . . . . . . . . . . . . . . . . . . .>     state           string,
+. . . . . . . . . . . . . . . . . . . . . . .>     automatic_count integer,
+. . . . . . . . . . . . . . . . . . . . . . .>     manual_count    integer
+. . . . . . . . . . . . . . . . . . . . . . .> )
+. . . . . . . . . . . . . . . . . . . . . . .>     ROW FORMAT DELIMITED
+. . . . . . . . . . . . . . . . . . . . . . .>         FIELDS TERMINATED BY ','
+. . . . . . . . . . . . . . . . . . . . . . .>     location 'project/hive/warehouse/q2';
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- to not display table names with column names
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SET hive.resultset.use.unique.column.names = false;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> INSERT INTO q2_results
+. . . . . . . . . . . . . . . . . . . . . . .> SELECT state,
+. . . . . . . . . . . . . . . . . . . . . . .>        SUM(CASE WHEN transmission = 'automatic' THEN 1 ELSE 0 END) AS automatic_count,
+. . . . . . . . . . . . . . . . . . . . . . .>        SUM(CASE WHEN transmission = 'manual' THEN 1 ELSE 0 END)    AS manual_count
+. . . . . . . . . . . . . . . . . . . . . . .> FROM car_prices_part_buck
+. . . . . . . . . . . . . . . . . . . . . . .> WHERE transmission IS NOT NULL
+. . . . . . . . . . . . . . . . . . . . . . .> GROUP BY state;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM q2_results;
++--------+------------------+---------------+
+| state  | automatic_count  | manual_count  |
++--------+------------------+---------------+
+| in     | 3869             | 120           |
+| mo     | 15301            | 423           |
+| ms     | 1732             | 33            |
+| ne     | 3904             | 105           |
+| nm     | 163              | 7             |
+| nv     | 11802            | 528           |
+| ny     | 5331             | 277           |
+| oh     | 20214            | 643           |
+| or     | 995              | 69            |
+| pr     | 2256             | 254           |
+| sc     | 3878             | 125           |
+| ut     | 1745             | 80            |
+| al     | 25               | 1             |
+| ca     | 66755            | 2663          |
+| co     | 6174             | 274           |
+| ga     | 31149            | 975           |
+| la     | 2069             | 21            |
+| ma     | 6099             | 374           |
+| mn     | 8986             | 212           |
+| nc     | 18591            | 986           |
+| nj     | 23098            | 659           |
+| ok     | 55               | 2             |
+| tn     | 19031            | 497           |
+| va     | 9272             | 554           |
+| wa     | 6886             | 404           |
+| wi     | 9374             | 222           |
+| az     | 7948             | 329           |
+| fl     | 75961            | 2385          |
+| hi     | 1177             | 53            |
+| il     | 22433            | 282           |
+| md     | 9800             | 486           |
+| mi     | 14303            | 359           |
+| pa     | 23022            | 1917          |
+| tx     | 42517            | 1225          |
++--------+------------------+---------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 

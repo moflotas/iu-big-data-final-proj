@@ -1,0 +1,70 @@
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> USE team21_projectdb;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> DROP TABLE IF EXISTS q5_results;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> CREATE EXTERNAL TABLE q5_results
+. . . . . . . . . . . . . . . . . . . . . . .> (
+. . . . . . . . . . . . . . . . . . . . . . .>     condition    integer,
+. . . . . . . . . . . . . . . . . . . . . . .>     avg_odometer float
+. . . . . . . . . . . . . . . . . . . . . . .> )
+. . . . . . . . . . . . . . . . . . . . . . .>     ROW FORMAT DELIMITED
+. . . . . . . . . . . . . . . . . . . . . . .>         FIELDS TERMINATED BY ','
+. . . . . . . . . . . . . . . . . . . . . . .>     location 'project/hive/warehouse/q5';
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> -- to not display table names with column names
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SET hive.resultset.use.unique.column.names = false;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> INSERT INTO q5_results
+. . . . . . . . . . . . . . . . . . . . . . .> SELECT condition, AVG(odometer) AS avg_odometer
+. . . . . . . . . . . . . . . . . . . . . . .> FROM car_prices_part_buck
+. . . . . . . . . . . . . . . . . . . . . . .> WHERE condition IS NOT NULL
+. . . . . . . . . . . . . . . . . . . . . . .> GROUP BY condition
+. . . . . . . . . . . . . . . . . . . . . . .> ORDER BY condition;
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> SELECT *
+. . . . . . . . . . . . . . . . . . . . . . .> FROM q5_results;
++------------+---------------+
+| condition  | avg_odometer  |
++------------+---------------+
+| 1          | 115341.28     |
+| 2          | 111306.53     |
+| 3          | 68872.92      |
+| 4          | 37927.992     |
+| 5          | 20357.742     |
+| 11         | 115261.266    |
+| 12         | 126198.24     |
+| 13         | 107585.125    |
+| 14         | 114427.96     |
+| 15         | 121536.66     |
+| 16         | 116868.305    |
+| 17         | 114271.5      |
+| 18         | 111534.38     |
+| 19         | 120067.266    |
+| 21         | 104148.125    |
+| 22         | 101480.8      |
+| 23         | 99466.53      |
+| 24         | 96925.99      |
+| 25         | 94632.836     |
+| 26         | 93175.44      |
+| 27         | 90709.984     |
+| 28         | 86780.12      |
+| 29         | 83034.42      |
+| 31         | 77768.836     |
+| 32         | 76447.38      |
+| 33         | 73878.445     |
+| 34         | 71369.31      |
+| 35         | 67095.35      |
+| 36         | 62562.504     |
+| 37         | 58352.96      |
+| 38         | 55686.875     |
+| 39         | 52246.26      |
+| 41         | 47378.65      |
+| 42         | 44218.43      |
+| 43         | 40678.41      |
+| 44         | 37834.375     |
+| 45         | 34504.15      |
+| 46         | 32079.525     |
+| 47         | 30928.32      |
+| 48         | 28015.143     |
+| 49         | 25843.346     |
++------------+---------------+
+0: jdbc:hive2://hadoop-03.uni.innopolis.ru:10> 
