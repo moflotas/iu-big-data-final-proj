@@ -306,7 +306,6 @@ run("hdfs dfs -get project/models/model2 models/model2")
 
 # Predict for test data using best model2
 predictions = model2.transform(test_data)
-predictions.show()
 
 predictions.select("label", "prediction")\
     .coalesce(1)\
