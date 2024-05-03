@@ -1,3 +1,6 @@
+import os
+import math
+import numpy as np
 from pyspark.sql import SparkSession, DataFrame
 import pyspark.sql.functions as F
 from pyspark.ml import Pipeline, Transformer
@@ -9,24 +12,21 @@ from pyspark.sql.types import IntegerType
 from pyspark.ml.regression import LinearRegression, GBTRegressor
 from pyspark.ml.evaluation import RegressionEvaluator
 from pyspark.ml.tuning import ParamGridBuilder, CrossValidator
-import numpy as np
-import math
-import os
 
 
 # Connect to Hive
-team = "team21"
-db_name = f"{team}_projectdb"
-table_name = "car_prices_part_buck"
+TEAM = "team21"
+DB_NAME = f"{TEAM}_projectdb"
+TABLE_NAME = "car_prices_part_buck"
 
 # location of Hive database in HDFS
-warehouse = "project/hive/warehouse"
+WAREHOUSE = "project/hive/warehouse"
 
 spark = SparkSession.builder\
-    .appName(f"{team} - spark ML")\
+    .appName(f"{TEAM} - spark ML")\
     .master("yarn")\
     .config("hive.metastore.uris", "thrift://hadoop-02.uni.innopolis.ru:9883")\
-    .config("spark.sql.warehouse.dir", warehouse)\
+    .config("spark.sql.warehouse.dir", WAREHOUSE)\
     .config("spark.sql.avro.compression.codec", "snappy")\
     .enableHiveSupport()\
     .getOrCreate()
@@ -37,7 +37,7 @@ sc = spark.sparkContext
 # Specify the input and output features
 # We will use the following features
 # Excluded 'vin' because it is like an ID of a car
-# Excluded 'mmr' because we want to make our own estimate of price without dependence on other estimations
+# Excluded 'mmr' because we want to make our own estimate of price
 # 'saledate' will be replaced by 'saledate_year', 'saledate_month', 'saledate_day'
 features = ['year', 'make', 'model', 'trim', 'body', 'state', 'condition',
             'odometer', 'color', 'interior', 'seller', 'transmission',
@@ -48,7 +48,7 @@ label = 'sellingprice'
 
 
 # Read hive tables
-car_prices = spark.read.format("avro").table(f'{db_name}.{table_name}')
+car_prices = spark.read.format("avro").table(f'{DB_NAME}.{TABLE_NAME}')
 
 split = F.split(F.to_date("saledate"), "-")
 car_prices = car_prices.withColumn("saledate_year", split.getItem(0).cast(IntegerType()))\
@@ -67,16 +67,32 @@ others = ['year', 'odometer', 'condition', 'saledate_year']
 
 
 # Feature extraction
-class CyclicalTransformer(Transformer, HasInputCol, HasOutputCol, DefaultParamsReadable, DefaultParamsWritable):
-    input_col = Param(Params._dummy(), "input_col", "input column name.", typeConverter=TypeConverters.toString)
-    output_col = Param(Params._dummy(), "output_col", "output column name.", typeConverter=TypeConverters.toString)
+class CyclicalTransformer(
+        Transformer, 
+        HasInputCol, 
+        HasOutputCol, 
+        DefaultParamsReadable, 
+        DefaultParamsWritable):
+    
+    input_col = Param(
+            Params._dummy(), 
+            "input_col", 
+            "input column name.", 
+            typeConverter=TypeConverters.toString
+        )
+    output_col = Param(
+            Params._dummy(), 
+            "output_col", 
+            "output column name.", 
+            typeConverter=TypeConverters.toString
+        )
 
     @keyword_only
     def __init__(self, period: float = 1, input_col: str = "input", output_col: str = "output"):
         super(CyclicalTransformer, self).__init__()
         self._setDefault(input_col=None, output_col=None)
         kwargs = self._input_kwargs
-        del(kwargs['period'])
+        del kwargs['period']
         self.set_params(**kwargs)
         self.period = period
 
@@ -209,8 +225,10 @@ predictions = model_lr.transform(test_data)
 
 
 # Evaluate the performance of the model
-evaluator1_rmse = RegressionEvaluator(labelCol="label", predictionCol="prediction", metricName="rmse")
-evaluator1_r2 = RegressionEvaluator(labelCol="label", predictionCol="prediction", metricName="r2")
+evaluator1_rmse = RegressionEvaluator(
+    labelCol="label", predictionCol="prediction", metricName="rmse")
+evaluator1_r2 = RegressionEvaluator(
+    labelCol="label", predictionCol="prediction", metricName="r2")
 
 rmse = evaluator1_rmse.evaluate(predictions)
 r2 = evaluator1_r2.evaluate(predictions)
@@ -254,8 +272,10 @@ run("hdfs dfs -cat project/output/model1_predictions.csv/*.csv > output/model1_p
 
 
 # Evaluate the best model1
-evaluator1_rmse = RegressionEvaluator(labelCol="label", predictionCol="prediction", metricName="rmse")
-evaluator1_r2 = RegressionEvaluator(labelCol="label", predictionCol="prediction", metricName="r2")
+evaluator1_rmse = RegressionEvaluator(
+    labelCol="label", predictionCol="prediction", metricName="rmse")
+evaluator1_r2 = RegressionEvaluator(
+    labelCol="label", predictionCol="prediction", metricName="r2")
 
 rmse1 = evaluator1_rmse.evaluate(predictions)
 r21 = evaluator1_r2.evaluate(predictions)
@@ -274,8 +294,10 @@ predictions = model_gbt.transform(test_data)
 
 
 # Evaluate the model_gbt
-evaluator2_rmse = RegressionEvaluator(labelCol="label", predictionCol="prediction", metricName="rmse")
-evaluator2_r2 = RegressionEvaluator(labelCol="label", predictionCol="prediction", metricName="r2")
+evaluator2_rmse = RegressionEvaluator(
+    labelCol="label", predictionCol="prediction", metricName="rmse")
+evaluator2_r2 = RegressionEvaluator(
+    labelCol="label", predictionCol="prediction", metricName="r2")
 
 rmse2 = evaluator2_rmse.evaluate(predictions)
 r22 = evaluator2_r2.evaluate(predictions)
@@ -319,8 +341,10 @@ run("hdfs dfs -cat project/output/model2_predictions.csv/*.csv > output/model2_p
 
 
 # Evaluate the best model2
-evaluator2_rmse = RegressionEvaluator(labelCol="label", predictionCol="prediction", metricName="rmse")
-evaluator2_r2 = RegressionEvaluator(labelCol="label", predictionCol="prediction", metricName="r2")
+evaluator2_rmse = RegressionEvaluator(
+    labelCol="label", predictionCol="prediction", metricName="rmse")
+evaluator2_r2 = RegressionEvaluator(
+    labelCol="label", predictionCol="prediction", metricName="r2")
 
 rmse2 = evaluator2_rmse.evaluate(predictions)
 r22 = evaluator2_r2.evaluate(predictions)
