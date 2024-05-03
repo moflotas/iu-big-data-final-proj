@@ -116,14 +116,14 @@ class CyclicalTransformer(
         """
         Get input column
         """
-        
+
         return self.getOrDefault(self.input_col)
 
     def get_output_col(self):
         """
         Get output column
         """
-        
+
         return self.getOrDefault(self.output_col)
 
     def _transform(self, dataset: DataFrame):
