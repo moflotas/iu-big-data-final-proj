@@ -1,3 +1,7 @@
+"""
+Train and evaluate Linear Regression Model and GBTRegressor Model
+"""
+
 import os
 import math
 import numpy as np
@@ -73,6 +77,9 @@ class CyclicalTransformer(
         HasOutputCol,
         DefaultParamsReadable,
         DefaultParamsWritable):
+    """
+    Transformer for encoding cyclical features
+    """
 
     input_col = Param(
             Params._dummy(),
@@ -98,22 +105,34 @@ class CyclicalTransformer(
 
     @keyword_only
     def set_params(self, input_col: str = "input", output_col: str = "output"):
+        """
+        Set parameters
+        """
+
         kwargs = self._input_kwargs
         self._set(**kwargs)
 
     def get_input_col(self):
+        """
+        Get input column
+        """
+        
         return self.getOrDefault(self.input_col)
 
     def get_output_col(self):
+        """
+        Get output column
+        """
+        
         return self.getOrDefault(self.output_col)
 
-    def _transform(self, df: DataFrame):
+    def _transform(self, dataset: DataFrame):
         input_col = self.get_input_col()
         output_col = self.get_output_col()
 
-        sin_feature = F.sin(2 * math.pi / self.period * df[input_col])
-        cos_feature = F.cos(2 * math.pi / self.period * df[input_col])
-        return df.withColumn(output_col + "_sin", sin_feature)\
+        sin_feature = F.sin(2 * math.pi / self.period * dataset[input_col])
+        cos_feature = F.cos(2 * math.pi / self.period * dataset[input_col])
+        return dataset.withColumn(output_col + "_sin", sin_feature)\
             .withColumn(output_col + "_cos", cos_feature)
 
 
@@ -192,6 +211,10 @@ data = data.select(["features", "label"])
 
 
 def run(command):
+    """
+    Run the command in a shell
+    """
+
     return os.popen(command).read()
 
 
@@ -353,9 +376,9 @@ r22 = evaluator2_r2.evaluate(predictions)
 # Compare best models
 models = [[str(model1), rmse1, r21], [str(model2), rmse2, r22]]
 
-df = spark.createDataFrame(models, ["model", "RMSE", "R2"])
+results_df = spark.createDataFrame(models, ["model", "RMSE", "R2"])
 
-df.coalesce(1)\
+results_df.coalesce(1)\
     .write\
     .mode("overwrite")\
     .format("csv")\
