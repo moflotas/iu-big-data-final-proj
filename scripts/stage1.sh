@@ -11,7 +11,7 @@ python3 scripts/build_projectdb.py
 # Remove previously created data in HDFS
 hdfs dfs -test -d project && hdfs dfs -rm -r -skipTrash project
 
-# Remove previously autog-generated .avsc and .java files
+# Remove previously auto-generated .avsc and .java files
 rm -f output/*.java output/*.avsc
 
 # Import the database into HDFS via Sqoop
