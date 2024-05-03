@@ -39,12 +39,12 @@ sc = spark.sparkContext
 # Excluded 'vin' because it is like an ID of a car
 # Excluded 'mmr' because we want to make our own estimate of price
 # 'saledate' will be replaced by 'saledate_year', 'saledate_month', 'saledate_day'
-features = ['year', 'make', 'model', 'trim', 'body', 'state', 'condition',
+FEATURES = ['year', 'make', 'model', 'trim', 'body', 'state', 'condition',
             'odometer', 'color', 'interior', 'seller', 'transmission',
             'saledate_year', 'saledate_month', 'saledate_day']
 
 # The output/target of our model
-label = 'sellingprice'
+LABEL = 'sellingprice'
 
 
 # Read hive tables
@@ -57,8 +57,8 @@ car_prices = car_prices.withColumn("saledate_year", split.getItem(0).cast(Intege
 
 
 # Feature selection
-car_prices = car_prices.select(features + [label]).na.drop()
-car_prices = car_prices.withColumnRenamed(label, "label")
+car_prices = car_prices.select(FEATURES + [LABEL]).na.drop()
+car_prices = car_prices.withColumnRenamed(LABEL, "label")
 
 categoricalCols = ['make', 'body', 'state', 'color', 'interior', 'transmission']
 textCols = ['model', 'trim', 'seller']
@@ -68,28 +68,28 @@ others = ['year', 'odometer', 'condition', 'saledate_year']
 
 # Feature extraction
 class CyclicalTransformer(
-        Transformer, 
-        HasInputCol, 
-        HasOutputCol, 
-        DefaultParamsReadable, 
+        Transformer,
+        HasInputCol,
+        HasOutputCol,
+        DefaultParamsReadable,
         DefaultParamsWritable):
-    
+
     input_col = Param(
-            Params._dummy(), 
-            "input_col", 
-            "input column name.", 
+            Params._dummy(),
+            "input_col",
+            "input column name.",
             typeConverter=TypeConverters.toString
         )
     output_col = Param(
-            Params._dummy(), 
-            "output_col", 
-            "output column name.", 
+            Params._dummy(),
+            "output_col",
+            "output column name.",
             typeConverter=TypeConverters.toString
         )
 
     @keyword_only
     def __init__(self, period: float = 1, input_col: str = "input", output_col: str = "output"):
-        super(CyclicalTransformer, self).__init__()
+        super().__init__()
         self._setDefault(input_col=None, output_col=None)
         kwargs = self._input_kwargs
         del kwargs['period']
@@ -121,7 +121,7 @@ stages = []
 final_features = others.copy()
 
 for textCol in textCols:
-    output_col = f"{textCol}_encoded"
+    output_col_name = f"{textCol}_encoded"
 
     tokenizer = Tokenizer(inputCol=textCol, outputCol=f"{textCol}_tokens")
     word2Vec = Word2Vec(
@@ -129,19 +129,19 @@ for textCol in textCols:
         seed=42,
         minCount=1,
         inputCol=tokenizer.getOutputCol(),
-        outputCol=output_col
+        outputCol=output_col_name
     )
 
     stages.append(tokenizer)
     stages.append(word2Vec)
 
-    final_features.append(output_col)
+    final_features.append(output_col_name)
 
 for categoricalCol in categoricalCols:
     # Create String indexer to assign index for the string fields
     # String Indexer is required as an input for One-Hot Encoder
     # We set the case as `skip` for any string out of the input strings
-    output_col = f"{categoricalCol}_encoded"
+    output_col_name = f"{categoricalCol}_encoded"
 
     indexer = StringIndexer(
         inputCol=categoricalCol,
@@ -151,17 +151,17 @@ for categoricalCol in categoricalCols:
     # Encode the strings using One Hot encoding
     encoder = OneHotEncoder(
         inputCol=indexer.getOutputCol(),
-        outputCol=output_col
+        outputCol=output_col_name
     )
 
     stages.append(indexer)
     stages.append(encoder)
 
-    final_features.append(output_col)
+    final_features.append(output_col_name)
 
-for cyclicalCol, period in cyclicalCols:
+for cyclicalCol, time_period in cyclicalCols:
     cyclical_transormer = CyclicalTransformer(
-        period=period,
+        period=time_period,
         input_col=cyclicalCol,
         output_col=cyclicalCol
     )
