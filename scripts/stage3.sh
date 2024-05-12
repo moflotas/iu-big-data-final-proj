@@ -2,6 +2,10 @@
 
 set -xe
 
+# remove previously generated models
+rm -rf models/model1
+rm -rf models/model2
+
 spark-submit --master yarn scripts/model.py
 
 # Split large train.json file into 2 parts

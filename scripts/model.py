@@ -290,8 +290,8 @@ predictions.select("label", "prediction")\
     .format("csv")\
     .option("sep", ",")\
     .option("header", "true")\
-    .save("project/output/model1_predictions.csv")
-run("hdfs dfs -cat project/output/model1_predictions.csv/*.csv > output/model1_predictions.csv")
+    .save("project/output/model1_predictions")
+run("hdfs dfs -cat project/output/model1_predictions/*.csv > output/model1_predictions.csv")
 
 
 # Evaluate the best model1
@@ -359,8 +359,8 @@ predictions.select("label", "prediction")\
     .format("csv")\
     .option("sep", ",")\
     .option("header","true")\
-    .save("project/output/model2_predictions.csv")
-run("hdfs dfs -cat project/output/model2_predictions.csv/*.csv > output/model2_predictions.csv")
+    .save("project/output/model2_predictions")
+run("hdfs dfs -cat project/output/model2_predictions/*.csv > output/model2_predictions.csv")
 
 
 # Evaluate the best model2
@@ -384,5 +384,5 @@ results_df.coalesce(1)\
     .format("csv")\
     .option("sep", ",")\
     .option("header", "true")\
-    .save("project/output/evaluation.csv")
-run("hdfs dfs -cat project/output/evaluation.csv > output/evaluation.csv")
+    .save("project/output/evaluation")
+run("hdfs dfs -cat project/output/evaluation/*.csv > output/evaluation.csv")
