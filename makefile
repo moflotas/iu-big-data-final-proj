@@ -9,3 +9,9 @@ stage-1:
 
 stage-2:
 	bash ./scripts/stage2.sh
+
+stage-3:
+	bash ./scripts/stage3.sh
+
+stage-4:
+	bash ./scripts/stage4.sh
